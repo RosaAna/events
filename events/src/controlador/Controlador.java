@@ -480,6 +480,10 @@ private String co_p;
     	informeDevolucion();
     }
     
+    if(e.getSource()==vista.getPanelParticipantes().getBtnEnviarEmail()) {
+    	
+    }
+    
  }   
      //Cierre de los eventos-----------------------------------//	
 

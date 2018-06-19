@@ -272,7 +272,7 @@ public class PanelFans extends JPanel {
 		tablaFan.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(tablaFan);
 		setLayout(groupLayout);
-		
+		/*
 		String[] party= {"SI", "NO"};
 		JComboBox combo=new JComboBox<String>(party);
 		
@@ -284,7 +284,7 @@ public class PanelFans extends JPanel {
 		
 		TableColumn coly=tablaFan.getColumnModel().getColumn(2);
 		coly.setCellEditor(new DefaultCellEditor(comby));
-		
+		*/
 		 tablaFan.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
              public void valueChanged(ListSelectionEvent e) {
             	 
