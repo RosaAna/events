@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="D:/sqlite-jdbc-3.18.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rosa/Documents/lerJson/gson-2.6.2.jar"/>
+	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rosa/Downloads/jcalendar-1.4.zip"/>
+	<classpathentry kind="lib" path="C:/Users/rosa/Downloads/jcalendar/lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rosa/Downloads/jcalendar/lib/jgoodies-common-1.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rosa/Downloads/jcalendar/lib/jgoodies-looks-2.4.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rosa/Downloads/jcalendar/lib/junit-4.6.jar"/>
+	<classpathentry kind="lib" path="miglayout15-swing.jar" sourcepath="miglayout-src.zip"/>
+	<classpathentry kind="lib" path="C:/Users/rosa/Desktop/eventsJaen/events/guarda_Gson_JDBCsqlite/jackson-core-2.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rosa/Desktop/itextpdf-5.5.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rosa/Desktop/mail.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
