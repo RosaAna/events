@@ -26,8 +26,32 @@ public class ProductoDAO implements IProductoDAO {
 	PreparedStatement preparedStatement;
 	ProductoDTO pdto;
 	String sql=null;
-	
-	
+	public List<ProductoDTO> getListaProductos() {
+		   List<ProductoDTO> listaProductos=new ArrayList<>();
+			String sql=" SELECT * FROM PRODUCTOS ";
+			//Creamos el objeto statement
+		    try {
+				Statement statement=conexion.createStatement();
+			   //Creamos el objeto resultSet
+			    ResultSet resultSet=statement.executeQuery(sql);
+
+			    while(resultSet.next()) {
+			        	String codigo=resultSet.getString("CODIGO_PRODUCTO");
+			        	int precio=resultSet.getInt("PRECIO");
+			        	int cantidad=resultSet.getInt("CANTIDAD");
+			          //String fecha=resultSet.getString("FECHA");
+			        	ProductoDTO producto = new ProductoDTO(codigo, precio, cantidad);
+						listaProductos.add(producto);
+			    }	      
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				//System.out.println("No lee getListaProductos");
+			}
+			
+			return listaProductos;
+		}
+	/*
 	@Override
 	public List<ProductoDTO> getListaProductos() {
 	   List<ProductoDTO> listaProductos=new ArrayList<>();
@@ -61,6 +85,7 @@ public class ProductoDAO implements IProductoDAO {
 		
 		return listaProductos;
 	}
+	*/
 	
 	public boolean borrarTablaProductos() {
 		boolean borrada=false;
@@ -91,15 +116,8 @@ public class ProductoDAO implements IProductoDAO {
 			        	int cantidad=resultSet.getInt("CANTIDAD");
 			        	//String fecha=resultSet.getString("FECHA");
 			           // LocalDate fecha=resultSet.getDate("FECHA").toLocalDate();
-			        	ProductoDTO producto;
-						try {
-							producto = new ProductoDTO(codigo, precio, cantidad);
+			        	ProductoDTO producto = new ProductoDTO(codigo, precio, cantidad);
 							 listaProductosDisponibles.add(producto);
-						} catch (ExceptionProducto e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
- 
 			    }       
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

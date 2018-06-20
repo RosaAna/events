@@ -13,6 +13,16 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,10 +39,13 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import com.itextpdf.text.log.SysoCounter;
+
 import modelo.CargarClientesGson;
 import modelo.CargarParticipantesGson;
 import modelo.CargarProductosGson;
 import modelo.ColorearFilasJTable;
+import modelo.CorreoJava;
 import modelo.CreaJsonParticipantes;
 import modelo.CrearPDF;
 import modelo.DevolucionDTO;
@@ -78,6 +91,7 @@ boolean comprobarProducto;
 boolean comprobarVenta;
 private VentaDAO ventasDAO;
 private PanelLogin panelLogin;
+private CorreoJava c;
 private String path;
 private int contador=0;
 private int contadorIPDF=0;
@@ -96,7 +110,7 @@ private String co_p;
 	this.devolucionesDAO = devolucionesDAO;
 	this.perdidas = perdidasDAO;
 	actionListener(this);
-	
+
 }
 
 	///------------------------ACTIONLISTENER----------------------------///
@@ -481,7 +495,9 @@ private String co_p;
     }
     
     if(e.getSource()==vista.getPanelParticipantes().getBtnEnviarEmail()) {
-    	
+    	CorreoJava c=new CorreoJava();
+    	enviarCorreo();
+    	enviarCorreosJava();
     }
     
  }   
@@ -912,7 +928,65 @@ private String co_p;
 	      }		
      }
   }
-   
+  public void enviarCorreo() {
+	 System.out.println("correo inicio");
+	c.setContrasena("mjmajcimjnbsmvmf");
+	c.setUsuarioCorreo("chavalinesguapos@gmail.com");
+	c.setAsunto("Asunto");
+	 System.out.println("correo inicio2");
+	c.setMensaje(vista.getPanelParticipantes().getTextFemailParty().getText());
+	 System.out.println("correo inicio3");
+	c.setDestino(vista.getPanelParticipantes().getTextFieldEmail().getText().trim());
+	//c.setNombreArchivo("barner.png");
+	//c.setRutaArchivo("barner.png");
+  } 
+  
+  
+  public boolean enviarCorreosJava() {
+		CorreoJava c=new CorreoJava();
+	  	    try {
+	    		    Properties p=new Properties();
+	    	
+	    	        p.put("mail.smtp.host", "smtp.gmail.com");
+	    	        p.setProperty("mail.smtp.starttls.enable", "true");
+	    	        p.setProperty("mail.smtp.port", "587");
+	    	        p.setProperty("mail.smtp.user", c.getUsuarioCorreo());
+	    	        p.setProperty("mail.smtp.auth", "true");
+System.out.println("correo 0");
+	    	        Session s= Session.getDefaultInstance(p, null);
+	    	        BodyPart texto=new MimeBodyPart();
+	    	        texto.setText(c.getMensaje());
+	    	        BodyPart adjunto=new MimeBodyPart();
+	 System.out.println("correo 1");      
+	    	         if(!c.getRutaArchivo().equals("")) {
+	    	    	   adjunto.setDataHandler(new DataHandler(new FileDataSource(c.getRutaArchivo())));
+	    	    	   adjunto.setFileName(c.getNombreArchivo()); 
+	    	           }
+	    	           MimeMultipart m=new MimeMultipart();
+	    	           m.addBodyPart(texto);
+	    	       
+	    	          if(!c.getRutaArchivo().equals("")) {
+	    	    	  m.addBodyPart(adjunto); 
+	    	          }
+	     System.out.println("correo 2");
+	    	          MimeMessage mensaje=new MimeMessage(s);
+	    	          mensaje.setFrom(new InternetAddress(c.getUsuarioCorreo()));
+	    	          mensaje.addRecipient(Message.RecipientType.TO,new InternetAddress(c.getDestino()));
+	    	          mensaje.setSubject(c.getAsunto());
+	    	          mensaje.setContent(m);
+	    	       
+	    	         Transport t=s.getTransport("smpt");
+	    	         t.connect(c.getUsuarioCorreo(), c.getContrasena());
+	    	         t.sendMessage(mensaje, mensaje.getAllRecipients());
+	    	         t.close();
+	    	         return true;
+	 
+	    		
+	    	}catch(Exception e2) {
+	    		//JOptionPane.showMessageDialog(null,  "No se ha podido enviar el correo","", JOptionPane.INFORMATION_MESSAGE);
+	    	 return false;
+	    	}
+	   	}		
    
  }
 

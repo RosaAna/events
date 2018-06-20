@@ -20,6 +20,18 @@ public ProductoDTO(String codigo_producto, int precio, int cantidad, String fech
 	this.fecha = fecha;
 }
 
+public ProductoDTO(String codigo_producto, int precio, int cantidad)  {
+	
+	super();
+	this.codigo_producto = codigo_producto;
+	this.precio = precio;
+	this.cantidad=cantidad;
+	
+	}
+
+
+/*
+
 public ProductoDTO(String codigo_producto, int precio, int cantidad) throws ExceptionProducto {
 	
 	super();
@@ -36,7 +48,7 @@ public ProductoDTO(String codigo_producto, int precio, int cantidad) throws Exce
 	}
 }
 
-
+*/
 
 /**
  * @return the codigo_producto

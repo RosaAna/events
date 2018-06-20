@@ -14,5 +14,6 @@
 	<classpathentry kind="lib" path="C:/Users/rosa/Desktop/eventsJaen/events/guarda_Gson_JDBCsqlite/jackson-core-2.0.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/rosa/Desktop/itextpdf-5.5.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/rosa/Desktop/mail.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rosa/Downloads/javax.mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
