@@ -231,7 +231,7 @@ public class PanelParticipantes extends JPanel {
 	
     	tablaPa = new JTable(new ModelTableParticipantes());
 		scrollPane.setViewportView(tablaPa);
-		tablaPa.setAutoCreateRowSorter(true);//ro
+		tablaPa.setAutoCreateRowSorter(true);
 		tablaPa.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		setLayout(groupLayout);
 		

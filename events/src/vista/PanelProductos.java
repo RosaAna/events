@@ -36,7 +36,6 @@ import javax.swing.SwingConstants;
 import modeloDAO.FansDAO;
 import modelo.FanDTO;
 public class PanelProductos extends JPanel {
-private JTable tablep;
 private JTextField textCantidad;
 private List<ProductoDTO> listaProductos;
 private JTextField textCodigo;
@@ -46,35 +45,12 @@ private JButton btnBuscar ;
 private JButton btnInsertarCliente ;
 private JButton btnInsertarProducto;
 private JButton btnBorrarBaseDatos;
+private JTable tablep;
 
 	/**
 	 * Create the panel.
 	 */
 	public PanelProductos()  {
-	
-		JScrollPane scrollPane = new JScrollPane();
-		
-		btnBorrar = new JButton("BORRAR");	
-		btnBorrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				/*
-			
-                            String codigo=getTextCodigo().getText().toString();
-                            ProductoDTO co= new ProductoDTO(codigo, 0, 0,"");
-                            ProductoDAO po= new ProductoDAO();
-              
-
-                            boolean updateProducto=po.deleteProducto(codigo);
-
-                            if(updateProducto) {
-                                    JOptionPane.showMessageDialog(null, "Borrado correctamente ");
-                            } else {
-                                    JOptionPane.showMessageDialog(null, "No se ha podido borrar ");
-                            }
-                   */         
-                            
-               }     
-		  });
 		
 		
 		JLabel lblCodigo_producto = new JLabel("Codigo");
@@ -99,6 +75,7 @@ private JButton btnBorrarBaseDatos;
 		textCantidad.setColumns(5);
 		
 		JLabel lblProducto = new JLabel("Producto");
+		lblProducto.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProducto.setForeground(Color.WHITE);
 		lblProducto.setFont(new Font("Verdana", Font.BOLD, 16));
 		
@@ -134,130 +111,151 @@ private JButton btnBorrarBaseDatos;
 		
 		
 		JLabel lblProductos = new JLabel("Productos");
+		lblProductos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProductos.setFont(new Font("Tahoma", Font.BOLD, 28));
 		lblProductos.setForeground(new Color(255, 255, 255));
 		
 		btnBorrarBaseDatos = new JButton("CARGAR");
-		btnBorrarBaseDatos.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		JPanel panel = new JPanel();
+		
+		btnBorrar = new JButton("BORRAR");
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				/*
+			
+                            String codigo=getTextCodigo().getText().toString();
+                            ProductoDTO co= new ProductoDTO(codigo, 0, 0,"");
+                            ProductoDAO po= new ProductoDAO();
+              
+
+                            boolean updateProducto=po.deleteProducto(codigo);
+
+                            if(updateProducto) {
+                                    JOptionPane.showMessageDialog(null, "Borrado correctamente ");
+                            } else {
+                                    JOptionPane.showMessageDialog(null, "No se ha podido borrar ");
+                            }
+                   */         
+                            
+               }     
+		  });
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(26)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblCantidad, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblPrecio)
-								.addComponent(lblCodigo_producto))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(btnInsertarProducto)
-									.addPreferredGap(ComponentPlacement.RELATED))
+									.addComponent(lblCantidad, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED))
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addComponent(textPrecio, GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-										.addComponent(textCantidad, GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(textCodigo, GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-											.addPreferredGap(ComponentPlacement.RELATED)))
-									.addGap(87))))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(108)
-							.addComponent(lblProducto)
-							.addPreferredGap(ComponentPlacement.RELATED)))
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 657, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(477, Short.MAX_VALUE)
-					.addComponent(lblProductos)
-					.addGap(285))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(478, Short.MAX_VALUE)
-					.addComponent(btnBorrarBaseDatos)
-					.addGap(45)
-					.addComponent(btnBorrar)
-					.addGap(216))
+										.addComponent(lblCodigo_producto)
+										.addComponent(lblPrecio))
+									.addGap(18)))
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(textCodigo)
+									.addGroup(groupLayout.createSequentialGroup()
+										.addGap(2)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+											.addComponent(btnInsertarProducto, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+											.addComponent(textCantidad, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))))
+								.addComponent(textPrecio, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+								.addComponent(lblProducto, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE))
+							.addGap(2)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(69)
+									.addComponent(panel, GroupLayout.PREFERRED_SIZE, 644, GroupLayout.PREFERRED_SIZE)
+									.addGap(115))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(268)
+									.addComponent(btnBorrarBaseDatos, GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+									.addGap(47)
+									.addComponent(btnBorrar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+									.addGap(274))))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(lblProductos)
+							.addGap(357))))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(216)
-							.addComponent(lblProducto)
-							.addGap(31)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textCodigo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblCodigo_producto))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textPrecio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblPrecio))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textCantidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblCantidad))
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnInsertarProducto))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(33)
+							.addGap(38)
 							.addComponent(lblProductos)
-							.addGap(18)
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 325, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnBorrar)
-						.addComponent(btnBorrarBaseDatos))
-					.addGap(32))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnBorrar)
+								.addComponent(btnBorrarBaseDatos)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(242)
+							.addComponent(lblProducto)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(57)
+									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblPrecio)
+										.addComponent(textPrecio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGap(23)
+									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(textCantidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblCantidad)))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(18)
+									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(textCodigo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblCodigo_producto))))
+							.addGap(260)
+							.addComponent(btnInsertarProducto)))
+					.addContainerGap(53, Short.MAX_VALUE))
 		);
+		panel.setLayout(null);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 11, 624, 301);
 		
-		//------------------
-		
-	
-		tablep = new JTable(new ModelTableProductos());
+		tablep = new JTable(new DefaultTableModel(
+			new Object[][] {
+				{},
+				{},
+				{},
+				{},
+				{},
+				{},
+				{},
+				{},
+				{},
+				{},
+				{},
+				{},
+				{},
+				{},
+			},
+			new String[] {
+			}
+		));
 		scrollPane.setViewportView(tablep);
-		tablep.setAutoCreateRowSorter(true);//ro
+		//tablep.setLayout(gl_panel);
+		tablep.setAutoCreateRowSorter(true);
 		tablep.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		setLayout(groupLayout);
+		panel.add(scrollPane);
+		setLayout(groupLayout);	
+	
 	}
 		public JButton getBtnBorrarBaseDatos() {
 		return btnBorrarBaseDatos;
 	}
-	/*
-		
-		DefaultTableModel modelop= new DefaultTableModel();
-		tablep=new JTable(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"CODIGO_PRODUCTO", "PRECIO", "CANTIDAD"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		//tablep.setAutoCreateRowSorter(true);
-		//tablep.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		scrollPane.setViewportView(tablep);
-		setLayout(groupLayout);
-		
 	
-		
-		btnBorrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-			
 	
-	}
-	*/
 	public JTextField getTextCodigo() {
 		// TODO Auto-generated method stub
 		return textCodigo;
@@ -313,10 +311,6 @@ private JButton btnBorrarBaseDatos;
 	public JButton getBtnInsertarCliente() {
 		return btnInsertarCliente;
 	}
-	
-
-	
-	
 }	
 				
 

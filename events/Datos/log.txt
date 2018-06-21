@@ -1134,3 +1134,5 @@
 
 2018-06-21T23:05:35.339  no adListaFans  listaFansDTO
 
+2018-06-22T01:08:18.846   no adProducto por object  BD BORRADA
+
