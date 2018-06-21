@@ -44,7 +44,7 @@ public class DevolucionDAO implements IDevolucionDAO {
 				}
 					
 			} catch (SQLException e2) {
-				//System.out.println("No se pudo leer getListaDevoluciones");
+				
 			}
 			return listDevolucionesPendientesRevison;	
 	
@@ -69,7 +69,7 @@ public class DevolucionDAO implements IDevolucionDAO {
 				}
 					
 			} catch (SQLException e2) {
-				//System.out.println("No se pudo leer getListaDevoluciones");
+				
 			}
 			return listDevolucionesEnviadasAventa;	
 	
@@ -134,7 +134,7 @@ public class DevolucionDAO implements IDevolucionDAO {
 	
 	
 	
-	
+/*
 	public static void main(String[] args) {
 	DevolucionDAO dvo=new DevolucionDAO();
 	DevolucionDTO dvto=new DevolucionDTO("22225678B", "A7",456,"","" );
@@ -150,6 +150,6 @@ public class DevolucionDAO implements IDevolucionDAO {
     
 	}
 
-
+*/
 	
 }

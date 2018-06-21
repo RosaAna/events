@@ -572,23 +572,27 @@ private String co_p;
         
 	}
 	
-	public void borrarProducto() {	 
+	public void borrarProducto() {	
+		
+		
 		if(vista.getPanelProductos().getTablep().getSelectedRow()<0) {
 			 JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila");	 
 	   }
 	   else {
           int filaP=vista.getPanelProductos().getTablep().getSelectedRow();
 	      String codigo=vista.getPanelProductos().getTablep().getValueAt(filaP, 0).toString();
-	
+	      int input = JOptionPane.showConfirmDialog(null, "Está seguro de borrar este producto?");
+	      if(input==0) {
 	      ProductoDAO dao=new ProductoDAO();
 	      boolean borrar= dao.deleteProducto(codigo);
-	
+	      
 
              if(borrar==true) {
                 JOptionPane.showMessageDialog(null, "Producto borrado correctamente ");
              } else {
                 JOptionPane.showMessageDialog(null, "No se ha podido borrar este producto ");
              }
+	      }
 	   }
 	}
 	
@@ -659,7 +663,9 @@ private String co_p;
 			 JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila");	 
 	   }
 	   else {
-	      JOptionPane.showMessageDialog(null, "¿Está seguro de eliminar este fan?");
+		   
+		   int input = JOptionPane.showConfirmDialog(null, "¿Está seguro de borrar esta persona?");
+		      if(input==0) {  
          int filaP=vista.getPanelFans().getTablaFan().getSelectedRow();
 	      String dni=vista.getPanelFans().getTablaFan().getValueAt(filaP, 0).toString();
 	
@@ -672,6 +678,7 @@ private String co_p;
            JOptionPane.showMessageDialog(null, "No se ha podido eliminar este fan ");
         }
 	   }
+	  }
     }
     
     public void insertarVenta() {
@@ -732,12 +739,13 @@ private String co_p;
   } 
   
   
-  
+  //Método para anular la venta
    public void anularVenta() {
 	  if(vista.getPanelB().getTableP().getSelectedRow()<0) {
 		 JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila");	 
 		 }
-		 JOptionPane.showMessageDialog(null, "¿Está seguro de anular esta venta?");
+	  int input = JOptionPane.showConfirmDialog(null, "¿Está seguro de anular esta venta?");
+      if(input==0) {  
 	     int filaVenta=vista.getPanelB().getTableP().getSelectedRow();
 		 String dni=vista.getPanelB().getTableP().getValueAt(filaVenta, 0).toString(); 
 		 String codigo=vista.getPanelB().getTableP().getValueAt(filaVenta, 1).toString();
@@ -747,9 +755,9 @@ private String co_p;
 		 VentaDTO vdto=new VentaDTO(dni, codigo, importe,  fecha);
 		 VentaDAO vdao=new VentaDAO();
 		 vdao.deleteVenta(dni, codigo, fecha);
-		
+      }
   }
-   
+   //Método para insertar un participante
    public void insertarParticipante() {
        ParticipanteDAO dao = new ParticipanteDAO();
 		 String dni=vista.getPanelParticipantes().getTextFdniParty().getText();
@@ -789,7 +797,8 @@ private String co_p;
 			 JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila");	 
 	   }
 	   else {
-	      JOptionPane.showMessageDialog(null, "¿Está seguro de eliminar este participante?");
+		   int input = JOptionPane.showConfirmDialog(null, "¿Está seguro de borrar este participante?");
+		      if(input==0) {  
           int filaP=vista.getPanelParticipantes().getTablaPa().getSelectedRow();
 	      String dni=vista.getPanelParticipantes().getTablaPa().getValueAt(filaP, 0).toString();
 	
@@ -802,7 +811,7 @@ private String co_p;
             JOptionPane.showMessageDialog(null, "No se ha podido eliminar este participante ");
          }
 	   }
-	   
+	  } 
    }
    
  
