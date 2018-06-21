@@ -188,7 +188,7 @@ private PanelB panelB;
 	   setJMenuBar(menuBar);
 	     mnCargarDatos = new JMenu("CARGAR DATOS");
 	     menuBar.add(mnCargarDatos);
-	        mntmClientes = new JMenuItem("Clientes");
+	        mntmClientes = new JMenuItem("Fans");
 	        mnCargarDatos.add(mntmClientes);
 	        mntmParticipantes = new JMenuItem("Participantes");
 	        mnCargarDatos.add(mntmParticipantes);

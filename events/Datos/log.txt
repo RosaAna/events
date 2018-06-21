@@ -1022,3 +1022,13 @@
 
 2018-06-21T16:41:32.633   no adProducto por object  E9
 
+2018-06-21T16:54:05.919  no adListaFans  listaFansDTO
+
+2018-06-21T16:54:29.734  no adListaFans  listaFansDTO
+
+2018-06-21T16:54:57.568   no adProducto por object  BD BORRADA
+
+2018-06-21T17:00:50.149  no adListaFans  listaFansDTO
+
+2018-06-21T17:01:09.972   no adProducto por object  BD BORRADA
+
