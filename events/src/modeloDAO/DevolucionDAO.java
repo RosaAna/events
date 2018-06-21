@@ -134,22 +134,22 @@ public class DevolucionDAO implements IDevolucionDAO {
 	
 	
 	
-	/*
+	
 	public static void main(String[] args) {
 	DevolucionDAO dvo=new DevolucionDAO();
 	DevolucionDTO dvto=new DevolucionDTO("22225678B", "A7",456,"","" );
 	DevolucionDTO dvto2=new DevolucionDTO("22225678B", "A7",456,"","" );
-	DevolucionDTO dvt=new DevolucionDTO();
+	//DevolucionDTO dvt=new DevolucionDTO();
     System.out.println(dvo.getListaDevolucionPendienteRevision());	
 	System.out.println(dvo. getListaDevolucionEnviadAproductos());
 	System.out.println(dvo.updateEstadoDevolucion("11111111A","A4" ));
-    System.out.println(dvo.deleteDevolucion("11111111A", "A3"));
+    System.out.println(dvo.deleteDevolucion("", "A5"));
     System.out.println("");
     System.out.println(dvo.getListaDevolucionEnviadAproductos());
     System.out.println(dvo.getListaDevolucionPendienteRevision());
     
 	}
 
-*/
+
 	
 }

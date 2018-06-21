@@ -13,7 +13,7 @@ public class Conexion {
 			Class.forName("org.sqlite.JDBC");
 			try {
 				conexion = DriverManager.
-						getConnection("jdbc:sqlite:BD/evento.db");
+						getConnection("jdbc:sqlite:BD/evento2.db");
 			} catch (SQLException e) {
 				System.out.println("Error al acceso de la BD");
 			}

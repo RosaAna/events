@@ -97,6 +97,8 @@ private int contador=0;
 private int contadorIPDF=0;
 private int contadorDPDF=0;
 private int contadorCargaClientes=0;
+private int contadorCargaProductos=0;
+private int contadorCargaParty=0;
 private String co_p;
   
 	public Controlador(Vista vista, FansDAO fansDAO, ProductoDAO productoDAO, VentaDAO ventasDAO,
@@ -198,8 +200,7 @@ private String co_p;
     
     
     vista.getSplitPan().getTable_SAperdidas().getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {	
-   	// limpiarInformacionClientesAperdidas();
-   	// JOptionPane.showMessageDialog(null, "1");
+  
 		 if(!(vista.getSplitPan().getTable_SAperdidas().getSelectionModel().isSelectionEmpty( ))) {
 			   int filaP=vista.getSplitPan().getTable_SAperdidas().getSelectedRow();
 			   String co_pe=vista.getSplitPan().getTable_SAperdidas().getValueAt(filaP, 0).toString();
@@ -422,50 +423,59 @@ private String co_p;
      }
      
      if(e.getSource()==vista.getMntmClientes()) {
-    	 if(contadorCargaClientes==0) {
+      if(contadorCargaClientes==0) {
+    	JOptionPane.showMessageDialog(null, "Este proceso puede tardar unos segundos en varios procesos");	 
  		FansDAO po =new FansDAO(); 
  		po.crearTablaFans();
  		List<FanDTO> lista=CargarClientesGson.leeJsonGson(Filechoossee.darRuta());
- 		boolean success=po.addListaFans(lista);
- 		   if(success) {
- 			   JOptionPane.showMessageDialog(null, "CargarJsonGsonF ha cargado la lista  correctamente ");
+ 		po.addListaFans(lista);
  		       cargarFans();
  		       contadorCargaClientes++;
- 		   }else
- 			   JOptionPane.showMessageDialog(null, "");
-    	 }
-    	 else {
+ 		 
+    	}else {
     		 JOptionPane.showMessageDialog(null, "No pude recargar de nuevo, ya lo ha hecho");	 
     	 }
  	 }
  	 if(e.getSource()==vista.getMntmProductos()) {
- 			ProductoDAO po =new ProductoDAO(); 
+ 		 if(contadorCargaProductos==0) {
+ 			JOptionPane.showMessageDialog(null, "Este proceso puede tardar unos segundos");
+ 			ProductoDAO po =new ProductoDAO();
  			po.borrarTablaProductos();
  			List<ProductoDTO> lista=CargarProductosGson.leeJsonGson(Filechoossee.darRuta());
- 			boolean success=po.addListaProducto(lista); 
- 			   if(success) {
- 				   JOptionPane.showMessageDialog(null, "CargarJsonGsonP ha cargado la lista  correctamente ");
- 			      
- 			   }else {
- 				   JOptionPane.showMessageDialog(null, "CargarJsonGsonP  ha cargado la lista");
- 			   }
- 			       cargarProductos();
+ 			po.addListaProducto(lista); 
+ 			    cargarProductos();
+ 			    contadorCargaProductos++;
+ 
+ 			   
+ 		 }else {
+ 			 JOptionPane.showMessageDialog(null, "No puede recargar de nuevo, ya lo ha hecho");	
+ 		 }   
  			   
  	 }  
 
  	 if(e.getSource()==vista.getMntmParticipantes()) {
+ 		 if(contadorCargaParty==0) {
+ 			JOptionPane.showMessageDialog(null, "Este proceso puede tardar unos segundos");
 			ParticipanteDAO po =new ParticipanteDAO();
 			po.borrarTablaParty();
 			List<ParticipanteDTO> lista=CargarParticipantesGson.leeJsonGson(Filechoossee.darRuta());
-			boolean success=po.addListaParticipantes(lista); 
-			   if(success) {
-				   JOptionPane.showMessageDialog(null, "CargarJsonGsonParty ha cargado la lista  correctamente ");
+		    JOptionPane.showMessageDialog(null, "Este proceso puede tardar unos segundos");
+		    po.addListaParticipantes(lista);
 			       cargarParticipantes();
-			   }//else
-				  // JOptionPane.showMessageDialog(null, "CargarJsonGsonParty NO ha cargado la lista");
-	 } 
+			       contadorCargaParty++;
+	  
+ 	      }else {
+ 			 JOptionPane.showMessageDialog(null, "No puede recargar de nuevo, ya lo ha hecho");
+ 			 }
+ 	 }
  	 if(e.getSource()==vista.getPanelFans().getBtnGenerarArchivoParticipantes()){
- 		CreaJsonParticipantes.escribeGson();
+ 		 JOptionPane.showMessageDialog(null, "Este proceso puede tardar unos segundos");
+ 		 if(CreaJsonParticipantes.escribeGson()) {
+ 			JOptionPane.showMessageDialog(null, "El archivo participantes.json ha sido creado en la carpeta Datos del workspace");	 
+ 		 }
+ 		 
+ 		 
+ 			 
  	 }
  	 
  	if(e.getSource()==vista.getPanelParticipantes().getBtnBorrarBaseDatos()) {
@@ -563,21 +573,23 @@ private String co_p;
 	}
 	
 	public void borrarProducto() {	 
-		
-	   JOptionPane.showMessageDialog(null, "¿Está seguro de borrar este producto?");
-       int filaP=vista.getPanelProductos().getTablep().getSelectedRow();
-	   String codigo=vista.getPanelProductos().getTablep().getValueAt(filaP, 0).toString();
+		if(vista.getPanelProductos().getTablep().getSelectedRow()<0) {
+			 JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila");	 
+	   }
+	   else {
+          int filaP=vista.getPanelProductos().getTablep().getSelectedRow();
+	      String codigo=vista.getPanelProductos().getTablep().getValueAt(filaP, 0).toString();
 	
-	   ProductoDAO dao=new ProductoDAO();
-	   boolean borrar= dao.deleteProducto(codigo);
+	      ProductoDAO dao=new ProductoDAO();
+	      boolean borrar= dao.deleteProducto(codigo);
 	
 
-        if(borrar==true) {
-            JOptionPane.showMessageDialog(null, "Producto borrado correctamente ");
-        } else {
-            JOptionPane.showMessageDialog(null, "No se ha podido borrar este producto ");
-       }
-    
+             if(borrar==true) {
+                JOptionPane.showMessageDialog(null, "Producto borrado correctamente ");
+             } else {
+                JOptionPane.showMessageDialog(null, "No se ha podido borrar este producto ");
+             }
+	   }
 	}
 	
     public void insertarFan() {

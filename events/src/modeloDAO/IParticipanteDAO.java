@@ -8,7 +8,7 @@ public interface IParticipanteDAO {
 	List<ParticipanteDTO>getListaParticipantesAperdidasConCodigoP(String codigo);
 	List<ParticipanteDTO> getListaParticipantesAperdidas();
 	List<ParticipanteDTO> getListaParticipantes();
-	boolean addParticipante(String dni, String nombre, String apellidos, String email);
+	boolean addParticipante(String dni, String nombre, String sexo, String email);
 	boolean deleteParticipante(String  dni);
 	boolean updateEmailParticipante(String dni, String email);
 	boolean addListaParticipantes(List<ParticipanteDTO> listaparticipantes);

@@ -26,16 +26,18 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import controlador.Controlador;
+import controlador.ModelTableDevoluciones;
 import controlador.ModelTableFans;
 import modelo.FanDTO;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import java.awt.Checkbox;
+import java.awt.BorderLayout;
+import javax.swing.JCheckBox;
 
 
 public class PanelFans extends JPanel {
-	private JTable tablaFan;
 	private JTextField textFdniFan;
 	private JTextField textFnombreFan;
 	private JTextField textFemailFan;
@@ -53,14 +55,14 @@ public class PanelFans extends JPanel {
 	private ButtonGroup groupButton_participa;
 	private ButtonGroup groupButton_sexo;
 	private JButton btnGenerarArchivoParticipantes;
+	private JScrollPane scrollPane;
+	private JTable tablaFan;
 	/**
 	 * Create the panel.
 	 * 
 	 */
 
 	public PanelFans() {
-
-		JScrollPane scrollPane = new JScrollPane();
 		
 		 btnBorrarFan = new JButton("BORRAR");
 		 btnBorrarFan.addActionListener(new ActionListener() {
@@ -150,6 +152,8 @@ public class PanelFans extends JPanel {
 		   groupButton_sexo.add(rdbtnChica);
 		
 		btnGenerarArchivoParticipantes = new JButton("GENERAR ARCHIVO PARTICIPANTES JSON");
+		
+		JPanel panel = new JPanel();
 		   
 		
 		
@@ -161,41 +165,39 @@ public class PanelFans extends JPanel {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+							.addGap(26)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(26)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-											.addComponent(lblSexo, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblDni)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addPreferredGap(ComponentPlacement.RELATED)
 											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblDni)
-												.addComponent(lblNombre)))
-										.addComponent(lblParticipa, GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE))
+												.addComponent(lblParticipa, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblFechaNac, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(rdbtnChico)
+											.addPreferredGap(ComponentPlacement.RELATED, 3, Short.MAX_VALUE)
+											.addComponent(rdbtnChica))
+										.addComponent(textFemailFan, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+										.addComponent(textFnombreFan, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(rdbtnSi, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+											.addComponent(rdbtnNo, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
+										.addComponent(dateChooser, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+										.addComponent(btnInsertarFans, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+										.addComponent(textFdniFan, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE))
 									.addPreferredGap(ComponentPlacement.RELATED))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addContainerGap()
-									.addComponent(lblFechaNac, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addGap(18)))
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(textFemailFan, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-								.addComponent(btnInsertarFans, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-								.addComponent(textFnombreFan, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-								.addComponent(dateChooser, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(rdbtnSi, GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-									.addGap(18)
-									.addComponent(rdbtnNo, GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(rdbtnChico, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(rdbtnChica, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addComponent(textFdniFan, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.RELATED))
+								.addComponent(lblSexo, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNombre)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblFanSeleccionado)
-							.addGap(70)))
+							.addGap(62)))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(152)
@@ -206,12 +208,12 @@ public class PanelFans extends JPanel {
 							.addComponent(btnBorrarFan, GroupLayout.PREFERRED_SIZE, 94, Short.MAX_VALUE)
 							.addGap(319))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(64)
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE)
-							.addGap(189))))
+							.addGap(45)
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 679, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(518)
-					.addComponent(lblNewLabel_1, GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+					.addComponent(lblNewLabel_1, GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
 					.addGap(435))
 		);
 		groupLayout.setVerticalGroup(
@@ -219,16 +221,11 @@ public class PanelFans extends JPanel {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(40)
+							.addGap(28)
 							.addComponent(lblNewLabel_1)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 327, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(btnBorrarFan))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(216)
+							.addGap(165)
 							.addComponent(lblFanSeleccionado)
-							.addGap(31)
+							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(textFdniFan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblDni))
@@ -236,62 +233,100 @@ public class PanelFans extends JPanel {
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(textFnombreFan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblNombre))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblSexo)
-								.addComponent(rdbtnChico, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-								.addComponent(rdbtnChica, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(1)
+									.addComponent(lblSexo))
+								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+									.addComponent(rdbtnChico, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+									.addComponent(rdbtnChica, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(textFemailFan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblEmail))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblFechaNac))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(rdbtnSi, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblParticipa)
+								.addComponent(rdbtnNo, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(12)
-									.addComponent(lblParticipa))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addGap(42)
 									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(rdbtnSi, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-										.addComponent(rdbtnNo, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnInsertarFans)
-								.addComponent(btnGenerarArchivoParticipantes)
-								.addComponent(btnModificarFan))))
-					.addContainerGap(107, Short.MAX_VALUE))
+										.addComponent(btnGenerarArchivoParticipantes)
+										.addComponent(btnModificarFan)
+										.addComponent(btnBorrarFan)))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(29)
+									.addComponent(btnInsertarFans))))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(80)
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 357, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(78, Short.MAX_VALUE))
 		);
 		
-	
-		tablaFan = new JTable(new ModelTableFans());
+		scrollPane = new JScrollPane();
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 661, GroupLayout.PREFERRED_SIZE)
+					.addGap(22))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+	/*	
+		tablaFan = new JTable();
+		tablaFan.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+			},
+			new String[] {
+				"DNI", "NOMBRE", "SEXO", "EMAIL", "FECHA_NACIMIENTO", "PARTICIPA"
+			}
+		));
+		*/
+		
+		tablaFan=new JTable(new ModelTableFans());
+		scrollPane.setViewportView(tablaFan);
+		panel.setLayout(gl_panel);
 		tablaFan.setAutoCreateRowSorter(true);
 		tablaFan.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		scrollPane.setViewportView(tablaFan);
-		setLayout(groupLayout);
-		/*
-		String[] party= {"SI", "NO"};
-		JComboBox combo=new JComboBox<String>(party);
+		setLayout(groupLayout);	
+	
 		
-		TableColumn col=tablaFan.getColumnModel().getColumn(5);
-		col.setCellEditor(new DefaultCellEditor(combo));
-		
-		String[] sexy= {"CHICO", "CHICA"};
-		JComboBox comby=new JComboBox<String>(sexy);
-		
-		TableColumn coly=tablaFan.getColumnModel().getColumn(2);
-		coly.setCellEditor(new DefaultCellEditor(comby));
-		*/
-		 tablaFan.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-             public void valueChanged(ListSelectionEvent e) {
-            	 
-             }
-            
-         });
-			
 			
 		
 
@@ -382,9 +417,7 @@ public class PanelFans extends JPanel {
 
     
 
-	/**
-	 * @return the tablaFan
-	 */
+	
 	public JTable getTablaFan() {
 		return tablaFan;
 	}

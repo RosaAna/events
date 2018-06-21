@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.itextpdf.text.log.SysoCounter;
+
 import modelo.Conexion;
 import modelo.ConexionProfe;
 import modelo.FanDTO;
@@ -160,6 +162,7 @@ public class ParticipanteDAO implements IParticipanteDAO {
 				System.out.println("Entra en tr15y");
 				if (rows != 0)
 					add = true;
+				System.out.println("Entra en tr16y");
 			} catch (SQLException e) {
 				
 				lo.generarLog(p.getDni(), "no adParticipante por object");
@@ -247,29 +250,29 @@ public class ParticipanteDAO implements IParticipanteDAO {
 			}
 		
 
-	/*
-		public static void main(String[] args) {
-			ParticipanteDAO c=new ParticipanteDAO();
-			List<ParticipanteDTO>lista=new ArrayList<>();
-			ParticipanteDTO d0=new ParticipanteDTO("9999999W9SER", "AAJose", "CHICO", "mvpprg@gmail.com");
-			ParticipanteDTO d1=new ParticipanteDTO("9999999W9ESP", "AALolo", "CHICO", "mvpprg@gmail.com");
-			ParticipanteDTO d2=new ParticipanteDTO("9999999W9ESQ", "AARamiro", "CHICO", "mvpprg@gmail.com");
-			ParticipanteDTO d3=new ParticipanteDTO("999999W99SES", "AAJuanito", "CHICO", "mvpprg@gmail.com");
-			lista.add(d0);
-			lista.add(d1);
-			lista.add(d2);
-			lista.add(d3);
-			//c.addParticipante("999999W99SESe", "AAJuanito", "Chico", "mvpprg@gmail.com");
+	
+	//	public static void main(String[] args) {
+		//	ParticipanteDAO c=new ParticipanteDAO();
+		//	List<ParticipanteDTO>lista=new ArrayList<>();
+		//	ParticipanteDTO d0=new ParticipanteDTO("9999999W9SR", "AAJose", "CHICO", "mvpprg@gmail.com");
+		//	ParticipanteDTO d1=new ParticipanteDTO("9999999W9SP", "AALolo", "CHICO", "mvpprg@gmail.com");
+		//	ParticipanteDTO d2=new ParticipanteDTO("9999999W9SQ", "AARamiro", "CHICO", "mvpprg@gmail.com");
+		//	ParticipanteDTO d3=new ParticipanteDTO("999999W99ES", "AAJuanito", "CHICO", "mvpprg@gmail.com");
+		//	lista.add(d0);
+		//	lista.add(d1);
+		//	lista.add(d2);
+		//	lista.add(d3);
+		//System.out.println(c.addParticipante("11111111WTYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY", "AJuanito", "Chico", "mvpprg@gmail.com"));
 			//System.out.println("SQLITE");
-			//System.out.println(c.getListaParticipantes());
+		//	System.out.println(c.getListaParticipantes());
 		  //  System.out.println(c.deleteParticipante("popop"));
 			//System.out.println(c.updateEmailParticipante("joseO@gmail.com", "99999999R"));
 			//c.addListaParticipantes(lista);
 		  //  System.out.println(c.getListaParticipantesAperdidas());
-            System.out.println(c.getListaParticipantesAperdidasConCodigoP("A0"));
+           // System.out.println(c.getListaParticipantesAperdidasConCodigoP("A0"));
 			//System.out.println(c.borrarTablaParty());
 			
-		}
-*/
+	//	}
+
 
 }

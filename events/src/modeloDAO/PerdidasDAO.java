@@ -45,7 +45,22 @@ String	sql = "SELECT * FROM perdidas ORDER BY DNI_CLIENTE;";
 	return listaPerdidas;
   }
 
+@Override
+public  boolean deletePerdidas(String dni) {
 
+boolean delete= false;
+sql = "DELETE FROM perdidas WHERE DNI=? ";
+try(PreparedStatement preparedStatement = conexion.prepareStatement(sql);) {
+
+	preparedStatement.setString(1, dni);
+	int rows = preparedStatement.executeUpdate();
+	if (rows != 0)
+		delete = true;
+} catch (SQLException e) {
+
+}
+return delete;
+}
 @Override
 public int totalPorCliente(String dni) {
 	int total=0;
@@ -105,15 +120,16 @@ String	sql = "SELECT SUM(IMPORTE) FROM perdidas ;";
 	return total;
 }
 
-/*
+
 public static void main(String[] args) {
 	PerdidasDAO p=new PerdidasDAO();
 	System.out.println(p.getListaPerdidasPorCliente());
 	//System.out.println(p.sumaPerdidas());
 	//System.out.println(p.totalPorCliente("99999999S"));
+	System.out.println(p.deletePerdidas(""));
  }
 
-*/
+
 
 
 

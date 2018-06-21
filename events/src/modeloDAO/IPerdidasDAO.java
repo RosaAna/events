@@ -10,6 +10,7 @@ int sumaPerdidas();
 int totalPorCliente(String dni);
 List<PerdidasDTO> getListaPerdidasPorCliente();
 List<PerdidasDTO> getListaPerdidasPorProducto();
+boolean deletePerdidas(String dni);
 }
 
 

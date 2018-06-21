@@ -28,7 +28,7 @@ public class ProductoDAO implements IProductoDAO {
 	String sql=null;
 	public List<ProductoDTO> getListaProductos() {
 		   List<ProductoDTO> listaProductos=new ArrayList<>();
-			String sql=" SELECT * FROM PRODUCTOS ";
+			String sql=" SELECT CODIGO_PRODUCTO, PRECIO, CANTIDAD FROM PRODUCTOS ";
 			//Creamos el objeto statement
 		    try {
 				Statement statement=conexion.createStatement();
@@ -47,45 +47,13 @@ public class ProductoDAO implements IProductoDAO {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				//System.out.println("No lee getListaProductos");
+			}/*catch (ExceptionProducto e2) {
+				return null;
 			}
-			
+			*/
 			return listaProductos;
 		}
-	/*
-	@Override
-	public List<ProductoDTO> getListaProductos() {
-	   List<ProductoDTO> listaProductos=new ArrayList<>();
-		String sql=" SELECT * FROM PRODUCTOS ";
-		//Creamos el objeto statement
-	    try {
-			Statement statement=conexion.createStatement();
-		   //Creamos el objeto resultSet
-		    ResultSet resultSet=statement.executeQuery(sql);
-
-		    while(resultSet.next()) {
-		        	String codigo=resultSet.getString("CODIGO_PRODUCTO");
-		        	int precio=resultSet.getInt("PRECIO");
-		        	int cantidad=resultSet.getInt("CANTIDAD");
-		          //  String fecha=resultSet.getString("FECHA");
-		        	ProductoDTO producto;
-					try {
-						producto = new ProductoDTO(codigo, precio, cantidad);
-						listaProductos.add(producto);
-					} catch (ExceptionProducto e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-					}      
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			//System.out.println("No lee getListaProductos");
-		}
-		
-		return listaProductos;
-	}
-	*/
+	
 	
 	public boolean borrarTablaProductos() {
 		boolean borrada=false;
@@ -117,14 +85,16 @@ public class ProductoDAO implements IProductoDAO {
 			        	//String fecha=resultSet.getString("FECHA");
 			           // LocalDate fecha=resultSet.getDate("FECHA").toLocalDate();
 			        	ProductoDTO producto = new ProductoDTO(codigo, precio, cantidad);
-							 listaProductosDisponibles.add(producto);
+					   listaProductosDisponibles.add(producto);
 			    }       
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				//System.out.println("No lee getListaProductosDisponibles");
+			}/* catch (ExceptionProducto e2) {
+				return null;
 			}
-		
+		*/
 		
 		
 		// TODO Auto-generated method stub
@@ -200,7 +170,6 @@ public class ProductoDAO implements IProductoDAO {
 		// TODO Auto-generated method stub
 		boolean addLista = false;
 		ProductoDAO pd=new ProductoDAO();
-		int contador=0;
 		for( ProductoDTO po: listaProductos) {
 			pd.addProducto(po);
 			if(addProducto(po))
@@ -267,7 +236,7 @@ public class ProductoDAO implements IProductoDAO {
 	
 
 	
-	/*
+
 
 	public static void main(String[] args) {
 		ProductoDAO p =new ProductoDAO();
@@ -289,10 +258,10 @@ public class ProductoDAO implements IProductoDAO {
 	    System.out.println(p.getListaProductosDisponibles());
 	    
 		List<ProductoDTO> lp=new ArrayList<>();
-		ProductoDTO pt1=new ProductoDTO("C23mmm",334,100);
-		ProductoDTO pt2=new ProductoDTO("mmm",364,100);
-		ProductoDTO pt3=new ProductoDTO("C25mmm",384,100);
-		ProductoDTO pt4=new ProductoDTO("C26mmm",394,100);
+		ProductoDTO pt1=new ProductoDTO("C23mmmW",334,100);
+		ProductoDTO pt2=new ProductoDTO("mmmW",364,100);
+		ProductoDTO pt3=new ProductoDTO("C25Wmmm",384,100);
+		ProductoDTO pt4=new ProductoDTO("C26Wmmm",394,100);
 		lp.add(pt4);
 		lp.add(pt3);
 		lp.add(pt2);
@@ -300,5 +269,5 @@ public class ProductoDAO implements IProductoDAO {
 		System.out.println(p.addListaProducto(lp));
 		
 	}
-*/
+
 }
