@@ -1009,8 +1009,37 @@ System.out.println("correo 0");
 	    	}
 	   	}		
    
- }
+ 
 
+
+public boolean comprobarFan(boolean clienteVerificar){
+	boolean fanComprobar = false, dniComprobar, nombreComprobar, emailComprobar, fechaComprobar = false;
+    String dni = vista.getPanelParticipantes().getTextFdniParty().getText();
+    
+        if(!dni.isEmpty()){
+            String dniRgx = "\\d{8}[A-Z]";
+            dniComprobar = Pattern.matches(dniRgx, dni);
+
+            String nombreRgx= "[Ò—·ÈÌÛ˙¡…Õ”⁄a-zA-Z]{4,30}";
+            String nombre = vista.getPanelParticipantes().getTextFnombreParty().getText();
+            nombreComprobar = Pattern.matches(nombreRgx, nombre);
+
+            String emailRgx= "^[a-zA-Z0-9_!#$%&í*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+            String email = vista.getPanelParticipantes().getTextFieldEmail().getText();
+            emailComprobar = Pattern.matches(emailRgx, email);
+         
+            Calendar miFecha = Calendar.getInstance();
+            miFecha.get(Calendar.YEAR);
+           //-------------
+            if((dniComprobar == true) && (nombreComprobar == true) && (emailComprobar == true) && (fechaComprobar == true)){
+                fanComprobar=true ;
+            } else {
+                    fanComprobar = false;
+             }
+        }
+    return fanComprobar;
+    }
+}
 	/*
 	public  void acertarLogin() {
 		char[] login=vista.getPanelLogin().getPasswordField().getPassword();
