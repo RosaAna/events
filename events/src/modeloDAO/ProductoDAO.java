@@ -46,11 +46,8 @@ public class ProductoDAO implements IProductoDAO {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				//System.out.println("No lee getListaProductos");
-			}/*catch (ExceptionProducto e2) {
-				return null;
 			}
-			*/
+				
 			return listaProductos;
 		}
 	
@@ -91,10 +88,7 @@ public class ProductoDAO implements IProductoDAO {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				//System.out.println("No lee getListaProductosDisponibles");
-			}/* catch (ExceptionProducto e2) {
-				return null;
 			}
-		*/
 		
 		
 		// TODO Auto-generated method stub
@@ -127,11 +121,8 @@ public class ProductoDAO implements IProductoDAO {
 		sql = "UPDATE productos SET PRECIO=?   WHERE CODIGO_PRODUCTO = ?";
 		try {
 			preparedStatement = conexion.prepareStatement(sql);
-			System.out.println("1");
 			preparedStatement.setInt(1, precioProducto);
-			System.out.println("2");
 			preparedStatement.setString(2, codigo);
-			System.out.println("3");
 			int rows = preparedStatement.executeUpdate();
 			if (rows != 0)
 				update = true;
@@ -168,18 +159,31 @@ public class ProductoDAO implements IProductoDAO {
 	@Override
 	public boolean addListaProducto(List<ProductoDTO> listaProductos) {
 		// TODO Auto-generated method stub
-		boolean addLista = false;
-		ProductoDAO pd=new ProductoDAO();
-		for( ProductoDTO po: listaProductos) {
-			pd.addProducto(po);
-			if(addProducto(po))
-			 addLista=true;
-			
+		boolean addList=false;
+		try {
+			conexion.setAutoCommit(true);
+			ProductoDAO pd=new ProductoDAO();
+			for( ProductoDTO po: listaProductos) {
+				pd.addProducto(po);
+			}
+			addList=true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			try {
+				conexion.rollback();
+				addList=false;
+				lo.generarLog("", " no adProducto por List<>");
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				lo.generarLog("", " Problemas con conexion.rollback");
+	            addList=false;
+			}
 		}
-		
-		return addLista;
+
+		return addList;
 	}
 	
+
 	public boolean  productoCantidadMenosUno(String codigo) {
 		boolean update = true;
 		// UPDATE productos SET CANTIDAD=CANTIDAD-1  WHERE CODIGO_PRODUCTO = "";
@@ -187,7 +191,6 @@ public class ProductoDAO implements IProductoDAO {
 		try {
 			preparedStatement = conexion.prepareStatement(sql);
 			preparedStatement.setString(1, codigo);
-			System.out.println("3");
 			int rows = preparedStatement.executeUpdate();
 			if (rows != 0)
 				update =true;	
@@ -237,7 +240,7 @@ public class ProductoDAO implements IProductoDAO {
 
 	
 
-
+/*
 	public static void main(String[] args) {
 		ProductoDAO p =new ProductoDAO();
 		//System.out.println("Lista Productos Todos");
@@ -248,7 +251,7 @@ public class ProductoDAO implements IProductoDAO {
 		ProductoDTO p2 =new ProductoDTO("C4488eee",186 ,100);
     	System.out.println(p.addProducto(p2));
 		//System.out.println(p.deleteProducto("B26"));
-	    ProductoDTO pdt=new ProductoDTO("A1", 186, 100);
+	    ProductoDTO pdt=new ProductoDTO("W1", 186, 100);
 	   // System.out.println(p.updatePrecioProducto(pdt, 9800));
 	    //System.out.println(p.productoCantidadMenosUno("A1"));
 	  //  System.out.println(p.getListaProductosDisponibles());
@@ -258,10 +261,10 @@ public class ProductoDAO implements IProductoDAO {
 	    System.out.println(p.getListaProductosDisponibles());
 	    
 		List<ProductoDTO> lp=new ArrayList<>();
-		ProductoDTO pt1=new ProductoDTO("C23mmmW",334,100);
-		ProductoDTO pt2=new ProductoDTO("mmmW",364,100);
-		ProductoDTO pt3=new ProductoDTO("C25Wmmm",384,100);
-		ProductoDTO pt4=new ProductoDTO("C26Wmmm",394,100);
+		ProductoDTO pt1=new ProductoDTO("C23mmmWsssss",334,100);
+		ProductoDTO pt2=new ProductoDTO("mmmWsssss",364,100);
+		ProductoDTO pt3=new ProductoDTO("C25Wmmmssss",384,100);
+		ProductoDTO pt4=new ProductoDTO("C26Wmmmsss",394,100);
 		lp.add(pt4);
 		lp.add(pt3);
 		lp.add(pt2);
@@ -269,5 +272,5 @@ public class ProductoDAO implements IProductoDAO {
 		System.out.println(p.addListaProducto(lp));
 		
 	}
-
+*/
 }

@@ -17,6 +17,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import com.google.gson.Gson;
+import com.itextpdf.text.log.SysoCounter;
 
 import modelo.CargarClientesGson;
 import modelo.Conexion;
@@ -25,6 +26,7 @@ import modelo.FanDQO;
 import modelo.FanDTO;
 import modelo.Filechoossee;
 import modelo.GenerarLog;
+import modelo.ParticipanteDTO;
 
 
 public class FansDAO implements IFansDAO {
@@ -196,33 +198,7 @@ public class FansDAO implements IFansDAO {
 		return delete;
 	}
 	
-/*
-	@Override
-	public boolean updateEmailFan(String nombre,String sexo, String email, String fecha, String participa, String dni) {
-		boolean update = false;
-	
-		String sql = "UPDATE fans SET NOMBRE=?, SEXO=?, EMAIL=?, FECHA_NACIMIENTO=?, PARTICIPA=?   WHERE DNI = ?";
-		System.out.println("0");
-		try(PreparedStatement preparedStatement = conexion.prepareStatement(sql);) {
-			preparedStatement.setString(1, nombre);
-			preparedStatement.setString(2, sexo);
-			preparedStatement.setString(3, email);
-			preparedStatement.setString(4, fecha);
-			System.out.println("1");
-			preparedStatement.setString(5, participa);
-			preparedStatement.setString(6, dni);
-			System.out.println("2");
-			int rows = preparedStatement.executeUpdate();
-			if (rows != 0)
-				update = true;
-		} catch (SQLException e) {
-			System.out.println("No se pudo modificar el email");
 
-		}
-		
-		return update;
-	}
-*/
 	public boolean updateEmailFan(String nombre, String sexo, String email, String participa, String dni) {
 		boolean update = false;
 	
@@ -244,23 +220,33 @@ public class FansDAO implements IFansDAO {
 		return update;
 	}
 
-
+	
 	@Override
 	public boolean addListaFans(List<FanDTO> listaFans) {
-		boolean addC=false;
-		for(FanDTO cto: listaFans){
-			FansDAO cd=new FansDAO();
-			cd.addFan(cto); 
-			addC=true;
-        }
-		lo.generarLog("listaFansDTO", "no adListaFans");
-		return addC;
+		boolean addF=false;
+		try {
+			conexion.setAutoCommit(true);
+			for(FanDTO cto: listaFans){
+				FansDAO cd=new FansDAO();
+				cd.addFan(cto); 
+				addF=true;
+			}
+		} catch (SQLException e) {
+			try {
+				conexion.rollback();
+				lo.generarLog("", " no adFans por List<FanDTO>");
+				lo.generarLog("listaFansDTO", "no adListaFans");
+			} catch (SQLException e1) {
+				lo.generarLog("", "Provlemas rollback en adListaFans");
+			}
+		}
+		
+		
+		return addF;
 	}
 	
 	public static Object [][] listaData (List<FanDTO> lista){
-		  Object [][] matriz = new Object [lista.size()][6];
-		//Object [][] matriz = new Object [contador][6];
-			
+		  Object [][] matriz = new Object [lista.size()][6];	
 			for (int i=0 ; i < lista.size() ;i++){
 			matriz[i][0] = lista.get(i).getDni();
 			matriz[i][1] = lista.get(i).getNombre();
@@ -287,27 +273,29 @@ public class FansDAO implements IFansDAO {
 	
 	public static void main(String[] args) {
 		FansDAO c=new FansDAO();
-		FanDTO d=new FanDTO("11111111RR", "Ana", "Sanles", "ana@gmail.com","--","--");
-	   c.addFans("ZZZZZZARRRZrrttt", "Genaro", "CHICO", "gene@gmail.com", "2018-23-09", "SI");
-		//System.out.println("SQLITE");
+		FanDTO d0=new FanDTO("11111111R", "Ana", "Sanles", "ana@gmail.com","--","--");
+		FanDTO d1=new FanDTO("11111112R", "Ana", "Sanles", "ana@gmail.com","--","--");
+		FanDTO d2=new FanDTO("11111113R", "Ana", "Sanles", "ana@gmail.com","--","--");
+		FanDTO d3=new FanDTO("11111114R", "Ana", "Sanles", "ana@gmail.com","--","--");
+	    c.addFans("22222222W", "Genaro", "CHICO", "gene@gmail.com", "2018-23-09", "SI");
+	    c.addFans("11111111Q", "Genaro", "CHICO", "gene@gmail.com", "2018-23-09", "SI");
 		System.out.println(c.getListaFans());
-		//c.addListaFans(c.readListClientesDesdeJson("Datos/clientes.json"));
-		//System.out.println(c.readListClientesDesdeJson("Datos/clientes.json"));
-		//System.out.println(c.deleteFan("33333333OOEWEWEW"));
-		//System.out.println(c.updateEmailFan("Genarin" ,"CHICO", "genaryn@gmail.com", "NO","wqwqeeZZZZZZATTZ"));
+		List <FanDTO> lista= new ArrayList<>();
+		lista.add(d0);
+		lista.add(d1);
+		lista.add(d2);
+		lista.add(d3);
+		c.addListaFans(lista);
+		System.out.println(c.deleteFan("11111111Q"));
+		System.out.println(c.updateEmailFan("Genarin" ,"CHICO", "genaryn@gmail.com", "NO","wqwqeeZZZZZZATTZ"));
 		//CargarClientesGson.leeJsonGson(Filechoossee.darRuta());
-       //  System.out.println(c.crearTablaFans());
+       // System.out.println(c.crearTablaFans());
 		System.out.println(c.getListaFansQparticipan());
 	     //System.out.println(c.existeFan("33333333A"));
 		System.out.println(c.getListaFans().size());
+		System.out.println(c.getListaFans());
 	}
-
-
-
-
 */
-
-
 }
 
 

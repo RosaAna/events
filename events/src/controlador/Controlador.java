@@ -1028,9 +1028,7 @@ public boolean comprobarFan(boolean clienteVerificar){
             String email = vista.getPanelParticipantes().getTextFieldEmail().getText();
             emailComprobar = Pattern.matches(emailRgx, email);
          
-            Calendar miFecha = Calendar.getInstance();
-            miFecha.get(Calendar.YEAR);
-           //-------------
+        
             if((dniComprobar == true) && (nombreComprobar == true) && (emailComprobar == true) && (fechaComprobar == true)){
                 fanComprobar=true ;
             } else {

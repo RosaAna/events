@@ -1140,3 +1140,23 @@
 
 2018-06-22T01:18:06.617   no adProducto por object  BD BORRADA
 
+2018-06-22T11:05:39.617   no adProducto por object  C4488eee
+
+2018-06-22T11:05:39.633   no adProducto por object  C26Wmmmsss
+
+2018-06-22T11:05:39.648   no adProducto por object  C25Wmmmssss
+
+2018-06-22T11:05:39.648   no adProducto por object  mmmWsssss
+
+2018-06-22T11:05:39.664   no adProducto por object  C23mmmWsssss
+
+2018-06-22T11:51:38.649  no updateParticipante: nombre, sexo o email   11111111WTY
+
+2018-06-22T11:51:38.664  no adParticipante por object  9999999W9SR
+
+2018-06-22T11:51:38.680  no adParticipante por object  9999999W9SP
+
+2018-06-22T11:51:38.680  no adParticipante por object  9999999W9SQ
+
+2018-06-22T11:51:38.695  no adParticipante por object  999999W99ES
+

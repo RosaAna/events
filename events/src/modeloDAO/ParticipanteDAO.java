@@ -15,6 +15,7 @@ import modelo.ConexionProfe;
 import modelo.FanDTO;
 import modelo.GenerarLog;
 import modelo.ParticipanteDTO;
+import modelo.ProductoDTO;
 
 public class ParticipanteDAO implements IParticipanteDAO {
 		private static Connection conexion= Conexion.getInstance();
@@ -151,13 +152,10 @@ public class ParticipanteDAO implements IParticipanteDAO {
 			
 			String sql = "INSERT INTO clientes(DNI, NOMBRE, SEXO, EMAIL) VALUES (?, ? ,? ,?);";
 			try(PreparedStatement  preparedStatement = conexion.prepareStatement(sql);) {
-				System.out.println("Entra en tr11y");
 				preparedStatement.setString(1, p.getDni());
-				System.out.println("Entra en tr13y");
 				preparedStatement.setString(2, p.getNombre());
 				preparedStatement.setString(3, p.getSexo());
 				preparedStatement.setString(4, p.getEmail());
-				System.out.println("Entra en tr14y");
 				int rows = preparedStatement.executeUpdate();
 				System.out.println("Entra en tr15y");
 				if (rows != 0)
@@ -219,21 +217,31 @@ public class ParticipanteDAO implements IParticipanteDAO {
 
 		@Override
 		public boolean addListaParticipantes(List<ParticipanteDTO> listaparticipantes) {
-			boolean addLC=false;
-			//conexion.setAutoCommit(true);
+			boolean addLp=false;
+			
 			try {
+				conexion.setAutoCommit(true);
 			for(ParticipanteDTO cto: listaparticipantes){
 				ParticipanteDAO da=new ParticipanteDAO();
 				da.addParticipante(cto);
 			 }
-			addLC=true;
+			addLp=true;
 			}catch(Exception e) {
-				lo.generarLog( "participantes.json", "no adListaParticipantes");	
-				System.out.println("no lista");
+				try {
+					conexion.rollback();
+					addLp=false;
+					lo.generarLog("", " no adProducto por List<ProductoDTO>");
+				} catch (SQLException e1) {
+					addLp=false;
+					lo.generarLog("", "Problema rollback List<ProductoDTO>");
+				}
+				
 			}
 		
-			return addLC;
+			return addLp;
 		}
+		
+		
 		
 		public static Object [][] listaData (List<ParticipanteDTO> lista){
 			Object [][] matriz = new Object [lista.size()][5];
@@ -251,28 +259,26 @@ public class ParticipanteDAO implements IParticipanteDAO {
 		
 
 	
-	//	public static void main(String[] args) {
-		//	ParticipanteDAO c=new ParticipanteDAO();
-		//	List<ParticipanteDTO>lista=new ArrayList<>();
-		//	ParticipanteDTO d0=new ParticipanteDTO("9999999W9SR", "AAJose", "CHICO", "mvpprg@gmail.com");
-		//	ParticipanteDTO d1=new ParticipanteDTO("9999999W9SP", "AALolo", "CHICO", "mvpprg@gmail.com");
-		//	ParticipanteDTO d2=new ParticipanteDTO("9999999W9SQ", "AARamiro", "CHICO", "mvpprg@gmail.com");
-		//	ParticipanteDTO d3=new ParticipanteDTO("999999W99ES", "AAJuanito", "CHICO", "mvpprg@gmail.com");
-		//	lista.add(d0);
-		//	lista.add(d1);
-		//	lista.add(d2);
-		//	lista.add(d3);
-		//System.out.println(c.addParticipante("11111111WTYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY", "AJuanito", "Chico", "mvpprg@gmail.com"));
-			//System.out.println("SQLITE");
-		//	System.out.println(c.getListaParticipantes());
-		  //  System.out.println(c.deleteParticipante("popop"));
-			//System.out.println(c.updateEmailParticipante("joseO@gmail.com", "99999999R"));
-			//c.addListaParticipantes(lista);
-		  //  System.out.println(c.getListaParticipantesAperdidas());
-           // System.out.println(c.getListaParticipantesAperdidasConCodigoP("A0"));
+		public static void main(String[] args) {
+			ParticipanteDAO c=new ParticipanteDAO();
+			List<ParticipanteDTO>lista=new ArrayList<>();
+			ParticipanteDTO d0=new ParticipanteDTO("9999999W9SR", "AAJose", "CHICO", "mvpprg@gmail.com");
+			ParticipanteDTO d1=new ParticipanteDTO("9999999W9SP", "AALolo", "CHICO", "mvpprg@gmail.com");
+			ParticipanteDTO d2=new ParticipanteDTO("9999999W9SQ", "AARamiro", "CHICO", "mvpprg@gmail.com");
+			ParticipanteDTO d3=new ParticipanteDTO("999999W99ES", "AAJuanito", "CHICO", "mvpprg@gmail.com");
+			lista.add(d0);
+			lista.add(d1);
+			lista.add(d2);
+			lista.add(d3);
+		    System.out.println(c.addParticipante("11111111WTY", "AJuanito", "Chico", "mvpprg@gmail.com"));
+		    System.out.println(c.deleteParticipante("popop"));
+			System.out.println(c.updateEmailParticipante("joseO@gmail.com", "99999999R"));
+			c.addListaParticipantes(lista);
+		    //System.out.println(c.getListaParticipantesAperdidas());
+            //System.out.println(c.getListaParticipantesAperdidasConCodigoP("A0"));
 			//System.out.println(c.borrarTablaParty());
-			
-	//	}
+			System.out.println(c.getListaParticipantes());
+		}
 
 
 }
