@@ -3,7 +3,7 @@
 
 Este proyecto consta de tres carpetas.
 1-worskpace:La carpeta eventsJaen (La aplicación)
-2-events_img:Imagenes  que podrá cambiar siempre y cuando no coincida tanto el nombre como la extensión-Recuerde retirar las antigüas antes para evitar confictos de nombre.
+2-events_img:Imagenes  que podrá cambiar siempre y cuando no coincida tanto el nombre como la extensión-Recuerde retirar las antiguas antes para evitar confictos de nombre.
 3-events_json:Aquí se guardan los archivos de datos de la base de datos. Incluye una carpeta  para borrar datos antigüos ¡Ojo! Borra  la base de datos completa,le será útil para ver  de forma sencilla que los datos se han borrado y que no es problema del sistema.
  Deje las dos carpetas, la de imágenes y la de datos en el escritorio ya que esa es la ruta por defecto de la aplicación. Si tiene algún problema no dude en contactar con nuestro servicio técnico.
 
